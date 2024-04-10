@@ -34,12 +34,47 @@ const addItems = (...items)=>{
    }
   
 }
+
 //create function to calculate the total price of the items added to the shopping cart
 const calculateTotalPrice=()=>{
+    // let this be the total price of the item in the shopping cart
+    let total=0; 
+    //loop through the item prices
+    for(item in shopping_cart){
+        //add the prices of each item in the shopping cart
+        total=total+items_price[item];
+      }
+      if(total>=400){
+        //add discount to the total price
+        let discount=(total*10)/100;
+        total=total-discount;
+        return total;
+      }
+      else{
+        return total;
+      }
+}
 
+function Pay(amount){
+    console.log('Processing the payment....................');
+    let paymentAmount=calculateTotalPrice();
+    console.log(`The total price for the items to be paid is: ${paymentAmount} USD`);
+    //check if the payment amount is more than the amount the customer paid
+    if(amount>paymentAmount){
+        console.log('Thank you for your purchase')
+        //calculate the change that is remaining
+        let change=paymentAmount-amount;
+        console.log(`Amount of change to be given: ${change} USD`);
+
+    }
+    else{
+        console.log("You dont have enough money to purchase the items");
+    }
 }
 //call the function addItem and include the items in the parameter to add to the cart
 addItems('phone', 'smart tv', 'gaming console', 'washing machine');
 //print the cart
 console.log(shopping_cart)
+//pay the total amount for the items
+Pay(1250)
 
